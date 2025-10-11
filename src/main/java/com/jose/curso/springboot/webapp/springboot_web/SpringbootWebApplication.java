@@ -1,4 +1,4 @@
-
+package com.jose.curso.springboot.webapp.springboot_web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
