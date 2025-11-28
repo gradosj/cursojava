@@ -1,11 +1,11 @@
 package com.jose.curso.springboot.webapp.springboot_web.controllers.models;
 
-public class Users {
+public class User {
 
   private String name;
   private String surname;
 
-  public Users(String name, String surname) {
+  public User(String name, String surname) {
     this.name = name;
     this.surname = surname;
   }
