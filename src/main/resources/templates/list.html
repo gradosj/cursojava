@@ -10,7 +10,34 @@
     </title>
   </head>
   <body>
-    <h1 th:text="${title}"> Document</h1>
-    <div th:if="${users.size()==0}" th:text="'No tiene elementos usuarios'">No tiene elementos usuarios</div>
+   <h1 th:text="${title}" th:if="${users.isEmpty() == false}">Listado de usuarios</h1>
+   <h1 th:if="${users.isEmpty() == true}">No tienes elementos</h1>
+
+
+
+    <table border="1" th:if="${users.isEmpty() == false}">
+        <thead>
+            <tr>
+                <!-- Nombres de la tabla -->
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Recorremos la lista de usuarios -->
+            <tr th:each="user : ${users}">
+                <td th:text="${user.name}">Nombre</td>
+                <td th:text="${user.surname}">Apellido</td>
+                <td th:if="${user.email}" th:text="${user.email}">Email</td>
+                <td th:if="${(user.email == null)}" th:text="${'No tiene email'}">Email</td>
+                <td>
+                    <!-- Ejemplo de acción -->
+                    <a th:href="@{'/users/' + ${user.name}}">Ver detalle</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
   </body>
 </html>

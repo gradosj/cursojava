@@ -56,7 +56,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+	
+   <dependency>
+     <groupId>org.wso2.carbon.mediation</groupId>
+     <artifactId>org.wso2.carbon.inbound.ui</artifactId>
+     <version>4.7.268</version>
+   </dependency>
+ </dependencies>
 
 	<build>
 		<plugins>

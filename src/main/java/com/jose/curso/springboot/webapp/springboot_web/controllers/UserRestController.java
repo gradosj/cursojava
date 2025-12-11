@@ -2,8 +2,6 @@ package com.jose.curso.springboot.webapp.springboot_web.controllers;
 
 import com.jose.curso.springboot.webapp.springboot_web.controllers.models.User;
 import com.jose.curso.springboot.webapp.springboot_web.controllers.models.dto.UserDto;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -34,25 +32,22 @@ public class UserRestController {
     body.put("title", "Hola Mundo Spring Boot");
     body.put("user", user);
 
-
     return body;
   }
 
-@GetMapping("/list")
-public List<User> list() {
+  @GetMapping("/list")
+  public List<User> list() {
+    User user = new User("Jose", "Antonio");
+    User user2 = new User("Esteban", "Lopez");
+    User user3 = new User("Maria", "Gonzalez");
 
-      User user = new User("Jose", "Antonio");
-      User user2 = new User("Esteban", "Lopez");
-      User user3 = new User("Maria", "Gonzalez");
+    List<User> users = Arrays.asList(user, user2, user3);
 
-      List<User> users = Arrays.asList(user, user2, user3);
+    // List<User> users = new ArrayList<>();
+    // users.add(user);
+    // users.add(user2);
+    // users.add(user3);
 
-      // List<User> users = new ArrayList<>();
-      // users.add(user);
-      // users.add(user2);
-      // users.add(user3);
-  
-
-      return users;
-}
+    return users;
+  }
 }
