@@ -1,9 +1,9 @@
 package com.jose.curso.springboot.webapp.springboot_web.controllers;
 
-import com.jose.curso.springboot.webapp.springboot_web.controllers.models.dto.ParamDto;
+import com.jose.curso.springboot.webapp.springboot_web.controllers.models.dto.ParamDtoMix;
 import jakarta.servlet.http.HttpServletRequest;
 
-import org.apache.abdera.protocol.client.RequestOptions;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,9 +20,9 @@ public class RequestParamsController {
   @GetMapping("/foo")
   // El parámetro "message" se recibe desde la URL como query param (ej: ?message=Hola)
   // "required = false" significa que no es obligatorio enviarlo
-  public ParamDto foo(@RequestParam(required = false) String message) {
+  public ParamDtoMix foo(@RequestParam(required = false) String message) {
     // Creamos un objeto ParamDto para devolver la respuesta
-    ParamDto param = new ParamDto();
+    ParamDtoMix param = new ParamDtoMix();
     // Si "message" viene en la URL, lo usamos; si no, ponemos un texto por defecto
     param.setMessage(
       message != null ? message : "No se ha recibido ningun mensaje"
@@ -38,7 +38,7 @@ public class RequestParamsController {
   // Recibe dos parámetros desde la URL:
   // - "text": no obligatorio
   // - "code": no obligatorio, pero si no se envía se asigna el valor por defecto 0
-  public ParamDto bar(
+  public ParamDtoMix bar(
     @RequestParam(value = "text", required = false) String text,
     @RequestParam(
       value = "code",
@@ -49,7 +49,7 @@ public class RequestParamsController {
     // Ejemplo de URL con parámetros: /api/params/bar?text=libros&code=2
 
     // Creamos un objeto ParamDto para devolver la respuesta
-    ParamDto params = new ParamDto();
+    ParamDtoMix params = new ParamDtoMix();
     // Si "text" viene en la URL, lo usamos; si no, ponemos un texto por defecto
     params.setMessage(
       text != null ? text : "No se ha recibido ninguna categoria"
@@ -63,13 +63,33 @@ public class RequestParamsController {
 
   // Este método se ejecuta cuando se hace una petición GET a la ruta /request
   @GetMapping("/request")
-  public ParamDto request(HttpServletRequest request) {
+  public ParamDtoMix request(HttpServletRequest request) {
+    Integer code = 0;
+
+
+    // try {
+    // Intentamos obtener el parámetro "code" desde la petición HTTP.
+    // request.getParameter("code") devuelve un String (texto).
+    // Como necesitamos un número entero, usamos Integer.parseInt() para convertirlo.
+    // code = Integer.parseInt(request.getParameter("code"));
+    //} catch (NumberFormatException e) {
+    // Este bloque se ejecuta si ocurre un error al convertir el texto a número.
+    // Por ejemplo, si el parámetro "code" no es un número válido (ej: "abc").
+    // Aquí deberías manejar la excepción: asignar un valor por defecto, mostrar un mensaje de error, etc.
+    // TODO: handle exception → significa que aún falta implementar la lógica de manejo.
+
+
+    try {
+      code = Integer.parseInt(request.getParameter("code"));
+    } catch (NumberFormatException e) {
+      // TODO: handle exception
+    }
     // Creamos un objeto ParamDto que será la respuesta en formato JSON
-    ParamDto params = new ParamDto();
+    ParamDtoMix params = new ParamDtoMix();
 
     // Obtenemos el parámetro "code" directamente desde la petición HTTP
     // request.getParameter("code") devuelve un String, por eso usamos Integer.parseInt para convertirlo a número
-    params.setCode(Integer.parseInt(request.getParameter("code")));
+    params.setCode(code);
 
     // Obtenemos el parámetro "message" directamente desde la petición HTTP
     // Si en la URL se envía ?message=Hola, aquí se guardará "Hola"
